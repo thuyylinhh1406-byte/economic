@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giàn Bầu Trước Ngõ · Trình chiếu</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f1f3f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+    }
+
+    /* container chính – tỉ lệ 16:9, bo góc, bóng đổ */
+    .presentation {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: #ffffff;
+      border-radius: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    /* khung chứa các slide – chiếm toàn bộ */
+    .slides-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* mỗi slide (frame) – ẩn/hiện bằng class active */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 36px 44px;
+      display: flex;
+      align-items: stretch;
+      gap: 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+      background: #ffffff;
+      border-radius: 40px;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 10;
+    }
+
+    /* hai cột */
+    .col-left {
+      flex: 1 1 45.45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .col-right {
+      flex: 1.2 1 54.55%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #faf9f6;
+      border-radius: 28px;
+      padding: 20px 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+    }
+
+    /* hình ảnh minh họa (giữ tỉ lệ) */
+    .col-right img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    /* typography */
+    .slide-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 38px;
+      line-height: 1.2;
+      color: #1e1e2a;
+      margin-bottom: 8px;
+      border-left: 6px solid #b87333;
+      padding-left: 18px;
+    }
+
+    .slide-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #5b5b6b;
+      letter-spacing: 0.3px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .quote-en {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      line-height: 1.5;
+      color: #1a1a2c;
+      background: #f2efe8;
+      padding: 16px 20px;
+      border-radius: 24px;
+      margin: 6px 0 4px;
+    }
+
+    .quote-vi {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #2c2c3a;
+      background: #f7f5f0;
+      padding: 14px 18px;
+      border-radius: 20px;
+      border-left: 4px solid #b87333;
+    }
+
+    .content-text {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #1e1e2a;
+      overflow-y: auto;
+      max-height: 100%;
+      padding-right: 4px;
+    }
+
+    .content-text strong {
+      color: #b87333;
+      font-weight: 600;
+    }
+
+    .content-text ul {
+      padding-left: 22px;
+      margin: 8px 0;
+    }
+
+    .content-text li {
+      margin-bottom: 6px;
+    }
+
+    .audio-wrapper {
+      margin-top: 8px;
+      background: #f0ede7;
+      border-radius: 60px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .audio-label {
+      font-weight: 600;
+      font-size: 16px;
+      color: #3d3d4a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .audio-wrapper iframe {
+      border-radius: 40px;
+      max-width: 100%;
+      height: 60px;
+    }
+
+    /* nút điều hướng – ẩn mờ, hiện khi hover */
+    .nav-controls {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 24px;
+      pointer-events: none;
+      z-index: 30;
+      opacity: 0.2;
+      transition: opacity 0.25s;
+    }
+
+    .presentation:hover .nav-controls {
+      opacity: 0.85;
+    }
+
+    .nav-btn {
+      pointer-events: auto;
+      background: rgba(30, 30, 40, 0.7);
+      backdrop-filter: blur(4px);
+      border: none;
+      color: white;
+      font-size: 20px;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover {
+      background: rgba(50, 50, 70, 0.9);
+      transform: scale(1.02);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.96);
+    }
+
+    .page-indicator {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: #7a7a8a;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(4px);
+      padding: 6px 18px;
+      border-radius: 40px;
+      z-index: 25;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+
+    .presentation:hover .page-indicator {
+      opacity: 0.9;
+    }
+
+    /* scroll nhẹ */
+    .slide::-webkit-scrollbar {
+      width: 4px;
+    }
+    .slide::-webkit-scrollbar-track {
+      background: #efede8;
+      border-radius: 12px;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: #b87333;
+      border-radius: 12px;
+    }
+
+    /* responsive nhỏ */
+    @media (max-width: 860px) {
+      .slide {
+        flex-direction: column;
+        padding: 24px 20px;
+        gap: 16px;
+      }
+      .col-left, .col-right {
+        flex: 1 1 auto;
+        width: 100%;
+      }
+      .col-right {
+        min-height: 160px;
+        padding: 12px;
+      }
+      .slide-title {
+        font-size: 28px;
+        padding-left: 12px;
+      }
+      .quote-en {
+        font-size: 18px;
+      }
+      .nav-btn {
+        font-size: 16px;
+        padding: 6px 16px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .slide {
+        padding: 16px 12px;
+      }
+      .slide-title {
+        font-size: 22px;
+      }
+      .content-text {
+        font-size: 15px;
+      }
+      .audio-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="presentation" id="app">
+
+  <div class="slides-wrapper">
+
+    <!-- ===== SLIDE 1 : GIỚI THIỆU ===== -->
+    <div class="slide active" data-index="0">
+      <div class="col-left">
+        <div class="slide-sub">Nguyễn Ngọc Tư</div>
+        <div class="slide-title">Giàn bầu trước ngõ</div>
+        <div class="quote-en">“Có thể bứt người ta ra khỏi quê hương nhưng không thể tách quê hương ra khỏi trái tim con người.”</div>
+        <div class="quote-vi">— Cha của nhân vật “tôi”</div>
+        <div class="content-text">
+          <p><strong>Thể loại:</strong> Truyện ngắn · <strong>Ngôi kể:</strong> thứ nhất (xưng “tôi”)</p>
+          <p style="margin-top: 8px;">Tác phẩm kể về một gia đình thành phố, nơi người bà trồng giàn bầu trước ngõ như một sợi dây kết nối với quê hương.</p>
+        </div>
+        <div class="audio-wrapper">
+          <span class="audio-label">🎙️ Giảng</span>
+          <iframe width="300" height="60" src="https://voca.ro/1b1ptgbiCU2G?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="col-right">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23dac5b0'/%3E%3Cpath d='M120 140 L160 90 L200 140 L240 90 L280 140 L260 200 L140 200 L120 140' fill='%235a7a4a' opacity='0.6'/%3E%3Ccircle cx='200' cy='120' r='60' fill='%23b87333' opacity='0.4'/%3E%3Ctext x='60' y='240' font-family='Inter' font-size='20' fill='%233d3d4a'%3E🍃 giàn bầu trước ngõ%3C/text%3E%3C/svg%3E"
+             alt="Giàn bầu trước ngõ – minh họa" />
+        <p style="margin-top: 12px; font-style: italic; color: #5b5b6b; font-size: 14px;">Hình ảnh biểu tượng: giàn bầu – nỗi nhớ quê</p>
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 2 : TÓM TẮT + NGÔI KỂ ===== -->
+    <div class="slide" data-index="1">
+      <div class="col-left">
+        <div class="slide-sub">Tóm tắt &amp; ngôi kể</div>
+        <div class="slide-title">Cốt truyện · Điểm nhìn</div>
+        <div class="content-text">
+          <p><strong>📘 Tóm tắt:</strong> Gia đình thành phố, bà trồng giàn bầu trước ngõ. Ban đầu ai cũng thấy vướng víu, nhưng dần dà giàn bầu trở thành biểu tượng của tình thân, nỗi nhớ quê. Bà đau yếu, vẫn hướng về giàn bầu. Cuối cùng, mọi người nhận ra giá trị thiêng liêng của những điều bình dị.</p>
+          <p style="margin-top: 12px;"><strong>🧑‍🏫 Ngôi kể:</strong> thứ nhất (xưng “tôi”) – nhân vật là cháu của bà.</p>
+          <ul>
+            <li>Tạo sự chân thực, gần gũi.</li>
+            <li>Bộc lộ cảm xúc, sự thay đổi thái độ của người kể.</li>
+            <li>Chủ động điều chỉnh nhịp kể.</li>
+          </ul>
+        </div>
+        <div class="audio-wrapper">
+          <span class="audio-label">🎙️ Giảng</span>
+          <iframe width="300" height="60" src="https://voca.ro/1b1ptgbiCU2G?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="col-right">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%23e8e0d5'/%3E%3Cpath d='M80 160 L140 110 L200 160 L260 110 L320 160 L300 220 L100 220 L80 160' fill='%233f5e3a' opacity='0.25'/%3E%3Ccircle cx='200' cy='140' r='50' fill='%23b87333' opacity='0.3'/%3E%3Ctext x='110' y='250' font-family='Inter' font-size='18' fill='%233d3d4a'%3E🌿 ký ức &amp; quê hương%3C/text%3E%3C/svg%3E"
+             alt="Tóm tắt – ngôi kể" />
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 3 : ĐỀ TÀI + CHỦ ĐỀ + TÌNH HUỐNG ===== -->
+    <div class="slide" data-index="2">
+      <div class="col-left">
+        <div class="slide-sub">Đề tài · Chủ đề · Tình huống</div>
+        <div class="slide-title">Gia đình &amp; quê hương</div>
+        <div class="content-text">
+          <p><strong>📌 Đề tài:</strong> Tình cảm gia đình, tình yêu quê hương.</p>
+          <p><strong>🌟 Chủ đề:</strong> Ca ngợi tình cảm gia đình, sự gắn bó với những điều bình dị, thân thuộc.</p>
+          <p><strong>⚡ Tình huống truyện:</strong> Bà rời quê lên thành phố, vẫn giữ nếp trồng bầu trước ngõ để vơi nỗi nhớ.</p>
+          <ul>
+            <li>Làm cốt truyện phát triển.</li>
+            <li>Khắc họa hình ảnh bà gắn bó sâu nặng với quê.</li>
+            <li>Làm nổi bật chủ đề.</li>
+          </ul>
+        </div>
+        <div class="audio-wrapper">
+          <span class="audio-label">🎙️ Giảng</span>
+          <iframe width="300" height="60" src="https://voca.ro/1b1ptgbiCU2G?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="col-right">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%23dacfc1'/%3E%3Cpath d='M180 80 L260 80 L280 140 L160 140 L180 80' fill='%23b87333' opacity='0.3'/%3E%3Crect x='150' y='150' width='100' height='60' rx='10' fill='%233f5e3a' opacity='0.2'/%3E%3Ctext x='120' y='240' font-family='Inter' font-size='18' fill='%233d3d4a'%3E🏡 tình yêu thương%3C/text%3E%3C/svg%3E"
+             alt="Đề tài – chủ đề" />
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 4 : Ý NGHĨA GIÀN BẦU + BIỂU TƯỢNG ===== -->
+    <div class="slide" data-index="3">
+      <div class="col-left">
+        <div class="slide-sub">Biểu tượng trung tâm</div>
+        <div class="slide-title">Ý nghĩa giàn bầu</div>
+        <div class="content-text">
+          <p><strong>🍃 Nghĩa tả thực:</strong> Giàn bầu thân thuộc trước ngõ, gợi hình ảnh làng quê.</p>
+          <p><strong>✨ Nghĩa biểu tượng:</strong></p>
+          <ul>
+            <li>Biểu tượng cho những điều mộc mạc, bình dị, truyền thống.</li>
+            <li>Biểu tượng của kí ức gia đình, tình yêu thương.</li>
+          </ul>
+          <p style="margin-top: 10px;"><strong>📖 Góp phần thể hiện chủ đề:</strong> nhắc nhở con người về sự gắn bó với gia đình và quê hương.</p>
+        </div>
+        <div class="audio-wrapper">
+          <span class="audio-label">🎙️ Giảng</span>
+          <iframe width="300" height="60" src="https://voca.ro/1b1ptgbiCU2G?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="col-right">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%23d3c5b0'/%3E%3Cpath d='M100 180 L160 100 L220 180 L280 100 L340 180 L300 250 L140 250 L100 180' fill='%233f5e3a' opacity='0.2'/%3E%3Ccircle cx='220' cy='140' r='60' fill='%23b87333' opacity='0.25'/%3E%3Ctext x='140' y='240' font-family='Inter' font-size='18' fill='%233d3d4a'%3E🌱 mộc mạc mà thiêng liêng%3C/text%3E%3C/svg%3E"
+             alt="Biểu tượng giàn bầu" />
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 5 : NHÂN VẬT BÀ + THÔNG ĐIỆP ===== -->
+    <div class="slide" data-index="4">
+      <div class="col-left">
+        <div class="slide-sub">Nhân vật bà &amp; thông điệp</div>
+        <div class="slide-title">Hình ảnh người bà</div>
+        <div class="content-text">
+          <p><strong>👵 Đặc điểm nổi bật:</strong> yêu thương con cháu, gắn bó với quê hương, khéo léo, tần tảo (làm đồ chơi từ vỏ bầu).</p>
+          <p><strong>💬 Thông điệp:</strong></p>
+          <ul>
+            <li>Gia đình, quê hương và những điều giản dị có ý nghĩa vô cùng.</li>
+            <li>Trân trọng giá trị truyền thống trong nhịp sống hiện đại.</li>
+          </ul>
+          <p style="margin-top: 10px;"><em>“Có thể bứt người ta ra khỏi quê hương nhưng không thể tách quê hương ra khỏi trái tim con người.”</em></p>
+        </div>
+        <div class="audio-wrapper">
+          <span class="audio-label">🎙️ Giảng</span>
+          <iframe width="300" height="60" src="https://voca.ro/1b1ptgbiCU2G?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="col-right">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%23eaded0'/%3E%3Ccircle cx='200' cy='110' r='45' fill='%23b87333' opacity='0.2'/%3E%3Cpath d='M160 160 L240 160 L260 220 L140 220 L160 160' fill='%234a6a3a' opacity='0.15'/%3E%3Ctext x='140' y='250' font-family='Inter' font-size='18' fill='%233d3d4a'%3E❤️ bà – sợi dây kết nối%3C/text%3E%3C/svg%3E"
+             alt="Người bà – thông điệp" />
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 6 : LIÊN KẾT CÂU + KIỂU CÂU ===== -->
+    <div class="slide" data-index="5">
+      <div class="col-left">
+        <div class="slide-sub">Tiếng Việt · Liên kết &amp; câu</div>
+        <div class="slide-title">Phép liên kết &amp; kiểu câu</div>
+        <div class="content-text">
+          <p><strong>🔗 Phép liên kết:</strong></p>
+          <ul>
+            <li><strong>Phép nối:</strong> “Nhưng” (câu 2).</li>
+            <li><strong>Phép thế:</strong> “Bà” thay “bà nội tôi”; “nó” thay “giàn bầu”.</li>
+            <li><strong>Phép lặp:</strong> “nó” ở câu 2 và 3.</li>
+          </ul>
+          <p style="margin-top: 12px;"><strong>📝 Kiểu câu:</strong></p>
+          <ul>
+            <li><em>“Chị tôi đi học cả ngày, mẹ tôi đến sở.”</em> → <strong>câu ghép</strong> (2 cụm C-V).</li>
+            <li><em>“Hôm ấy, cả nhà tôi ăn lại bát canh ngày xưa, nghe ngọt lìm lịm lưỡi.”</em> → <strong>câu đơn</strong> (1 cụm C-V).</li>
+          </ul>
+        </div>
+        <div class="audio-wrapper">
+          <span class="audio-label">🎙️ Giảng</span>
+          <iframe width="300" height="60" src="https://voca.ro/1b1ptgbiCU2G?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="col-right">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%23cfc6b8'/%3E%3Crect x='80' y='80' width='240' height='40' rx='16' fill='%233f5e3a' opacity='0.15'/%3E%3Crect x='80' y='140' width='200' height='40' rx='16' fill='%23b87333' opacity='0.15'/%3E%3Ctext x='140' y='250' font-family='Inter' font-size='18' fill='%233d3d4a'%3E📚 ngữ pháp &amp; liên kết%3C/text%3E%3C/svg%3E"
+             alt="Liên kết câu – kiểu câu" />
+      </div>
+    </div>
+
+    <!-- ===== SLIDE 7 : PHÂN TÍCH CHI TIẾT (giàn bầu) – mở đoạn + luận điểm ===== -->
+    <div class="slide" data-index="6">
+      <div class="col-left">
+        <div class="slide-sub">Phân tích chi tiết</div>
+        <div class="slide-title">Giàn bầu trước ngõ</div>
+        <div class="content-text">
+          <p><strong>🌿 Mở đoạn:</strong> “Giàn bầu trước ngõ” là chi tiết trung tâm, giàu ý nghĩa biểu tượng.</p>
+          <p><strong>📌 Luận điểm 1:</strong> Hình ảnh xuyên suốt, thể hiện tình cảm gia đình và sự giao thoa cũ – mới.</p>
+          <p><strong>📌 Luận điểm 2:</strong> Góp phần phát triển cốt truyện, tạo mâu thuẫn ban đầu, sau đó hóa giải bằng sự trân trọng.</p>
+          <p><strong>📌 Luận điểm 3:</strong> Khắc họa nhân vật: bà (nhớ quê, kiên trì), “tôi” (thay đổi nhận thức), cha (từ khó chịu đến thấu hiểu).</p>
+          <p><strong>📌 Luận điểm 4:</strong> Làm nổi bật chủ đề: trân quý những điều bình dị của quê hương.</p>
+        </div>
+        <div class="audio-wrapper">
+          <span class="audio-label">🎙️ Giảng</span>
+          <iframe width="300" height="60" src="https://voca.ro/1b1ptgbiCU2G?autoplay=0" frameborder="0" allow="autoplay"></iframe>
+        </div>
+      </div>
+      <div class="col-right">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Crect width='400' height='280' fill='%23d6c9b5'/%3E%3Cpath d='M140 100 L220 60 L300 100 L280 180 L160 180 L140 100' fill='%233f5e3a' opacity='0.2'/%3E%3Ccircle cx='220' cy='120' r='45' fill='%23b87333' opacity='0.2'/%3E%3Ctext x='130' y='250' font-family='Inter' font-size='18' fill='%233d3d4a'%3E✍️ phân tích chuyên sâu%3C/text%3E%3C/svg%3E"
+             alt="Phân tích chi tiết giàn bầu" />
+      </div>
+    </div>
+
+  </div> <!-- end slides-wrapper -->
+
+  <!-- điều hướng -->
+  <div class="nav-controls">
+    <button class="nav-btn" id="prevBtn">← Trước</button>
+    <button class="nav-btn" id="nextBtn">Tiếp →</button>
+  </div>
+  <div class="page-indicator" id="pageIndicator">1 / 7</div>
+
+</div> <!-- end presentation -->
+
+<script>
+  (function() {
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicator = document.getElementById('pageIndicator');
+    let current = 0;
+    const total = slides.length;
+
+    function goTo(index) {
+      if (index < 0) index = total - 1;
+      if (index >= total) index = 0;
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      current = index;
+      indicator.textContent = `${current + 1} / ${total}`;
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // phím mũi tên
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+      else if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    // khởi tạo
+    goTo(0);
+  })();
+</script>
+
+</body>
+</html>
