@@ -3,395 +3,692 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide thuyết minh - Quản trị doanh nghiệp Nhật Bản</title>
+    <title>Quản trị Doanh nghiệp Nhật Bản · 改革・外部董事・投資家</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
         }
         body {
-            background: #1e2b3c;
+            background: #f0ebe5;
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            margin: 0;
             padding: 20px;
         }
         .slide-container {
-            width: 1280px;
-            max-width: 100%;
+            width: 100%;
+            max-width: 1200px;
             aspect-ratio: 16 / 9;
             background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -10px rgba(0,0,0,0.6);
-            display: flex;
-            flex-direction: column;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px -8px rgba(0,0,0,0.15);
             overflow: hidden;
             position: relative;
-        }
-        .slide-header {
-            background: #0b1a2a;
-            color: #f0f4fa;
-            padding: 12px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #3b5a78;
-            flex-shrink: 0;
-        }
-        .slide-header h2 {
-            font-weight: 400;
-            font-size: 1.2rem;
-            letter-spacing: 0.5px;
-        }
-        .slide-header .slide-counter {
-            background: #2a4055;
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        .slide-body {
-            flex: 1;
-            padding: 24px 36px 20px 36px;
-            overflow-y: auto;
-            background: #fafcff;
             display: flex;
             flex-direction: column;
         }
-        .slide-body h1 {
+        .slide-wrapper {
+            flex: 1;
+            padding: 2rem 2.5rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background: #fefcf8;
+            position: relative;
+        }
+        .slide {
+            display: none;
+            height: 100%;
+            flex-direction: column;
+            justify-content: flex-start;
+            animation: fadeSlide 0.3s ease;
+        }
+        .slide.active {
+            display: flex;
+        }
+        @keyframes fadeSlide {
+            0% { opacity: 0.4; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3 {
+            font-family: 'DM Serif Display', serif;
+            font-weight: 400;
+            color: #2c3e4f;
+            letter-spacing: -0.01em;
+        }
+        h1 {
+            font-size: 2.6rem;
+            margin-top: 0.2rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
+            border-left: 6px solid #b7a48b;
+            padding-left: 1.2rem;
+        }
+        h2 {
             font-size: 2rem;
-            font-weight: 600;
-            color: #0b1a2a;
-            border-left: 6px solid #2d7aff;
-            padding-left: 20px;
-            margin-bottom: 18px;
+            margin: 0.8rem 0 0.6rem 0;
+            color: #4a5d6b;
         }
-        .slide-body h2 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: #1e3b5a;
-            margin: 12px 0 10px 0;
+        h3 {
+            font-size: 1.6rem;
+            color: #5b6f7e;
+            margin: 0.5rem 0 0.5rem 0;
         }
-        .slide-body h3 {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #1f4970;
-            margin: 8px 0;
-        }
-        .slide-body p, .slide-body li {
-            color: #1f2e3f;
-            line-height: 1.6;
+        .subhead {
             font-size: 1rem;
+            font-weight: 500;
+            color: #6e7f8d;
+            letter-spacing: 0.3px;
+            margin-bottom: 0.5rem;
         }
-        .slide-body ul {
-            padding-left: 24px;
-            margin: 6px 0;
+        .bilingual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            margin: 0.5rem 0;
         }
-        .slide-body table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            margin: 12px 0;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        .zh {
+            font-weight: 500;
+            color: #1f2a33;
+            font-size: 1.05rem;
         }
-        .slide-body th {
-            background: #e4ecf5;
-            color: #0b1f32;
-            font-weight: 600;
-            padding: 8px 6px;
-            border: 1px solid #ccdae8;
-            text-align: center;
+        .vi {
+            font-weight: 400;
+            color: #4e5f6b;
+            font-size: 0.98rem;
+            border-left: 2px solid #d6ccc0;
+            padding-left: 0.9rem;
+            margin-top: 0.2rem;
         }
-        .slide-body td {
-            padding: 6px 8px;
-            border: 1px solid #dde6f0;
-            text-align: center;
+        .quote {
+            background: #f2eee9;
+            padding: 1.2rem 1.8rem;
+            border-radius: 28px;
+            margin: 0.7rem 0;
+            font-style: italic;
+            border-left: 6px solid #b7a48b;
         }
-        .highlight-box {
-            background: #eef4fb;
-            padding: 14px 20px;
-            border-radius: 16px;
-            border-left: 6px solid #2d7aff;
-            margin: 10px 0;
+        .quote p {
+            margin: 0.3rem 0;
+        }
+        .divider {
+            border: none;
+            border-top: 2px dashed #d6cbbc;
+            margin: 0.6rem 0;
         }
         .flex-row {
             display: flex;
+            gap: 1.2rem;
             flex-wrap: wrap;
-            gap: 18px;
-            justify-content: space-between;
         }
-        .flex-col {
+        .col {
             flex: 1;
             min-width: 200px;
         }
-        .audio-control {
-            margin-top: 18px;
-            background: #f0f6fe;
-            padding: 12px 18px;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border: 1px solid #bdd6ed;
-            flex-wrap: wrap;
-        }
-        .audio-control label {
-            font-weight: 600;
-            color: #0b2a4a;
-        }
-        .audio-control input {
-            flex: 1;
-            padding: 8px 14px;
-            border-radius: 30px;
-            border: 1px solid #b0c8df;
+        .small-meta {
             font-size: 0.9rem;
+            color: #6a7b88;
+            margin-top: 0.2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9rem;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+        th {
+            background: #e9eff6;
+            color: #0b1f33;
+            font-weight: 600;
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid #d8e2ee;
+        }
+        td {
+            padding: 8px 8px;
+            border: 1px solid #e2eaf3;
+            text-align: center;
             background: white;
-            min-width: 180px;
         }
-        .audio-control button {
-            background: #1f4b77;
-            border: none;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
+        .highlight-box {
+            background: #f0f5fe;
+            padding: 14px 20px;
+            border-radius: 16px;
+            border-left: 6px solid #2a7de1;
+            margin: 12px 0;
         }
-        .audio-control button:hover {
-            background: #0f3457;
-        }
-        .play-btn {
-            background: #2d7aff;
-            border: none;
-            color: white;
-            font-size: 1.4rem;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
+        .audio-wrapper {
+            margin: 0.6rem 0 0.2rem 0;
+            background: #f5f1ec;
+            border-radius: 60px;
+            padding: 8px 14px 8px 14px;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-            flex-shrink: 0;
+            gap: 10px;
+            border: 1px solid #e2d8ce;
+            max-width: 100%;
+            flex-wrap: wrap;
         }
-        .play-btn:hover {
-            background: #1a5fd0;
-            transform: scale(1.05);
+        .audio-wrapper iframe {
+            max-width: 100%;
+            border-radius: 40px;
+            height: 52px;
         }
-        .play-btn.playing {
-            background: #e65c4b;
+        .audio-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #4e5f6b;
+            background: #e8dfd6;
+            padding: 4px 14px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
         }
-        .slide-footer {
-            background: #eef3f9;
-            padding: 14px 28px;
+        .nav-bar {
+            background: #fcf9f5;
+            padding: 0.8rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #c7d7e9;
+            border-top: 1px solid #e5dbd1;
             flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         .nav-btn {
-            background: #1f4970;
+            background: #eae2d9;
             border: none;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 500;
-            padding: 8px 32px;
-            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e4f;
+            padding: 0.55rem 1.8rem;
+            border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
-            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
         .nav-btn:hover {
-            background: #0d2b47;
+            background: #d8cdc0;
             transform: scale(0.97);
         }
-        .nav-btn:disabled {
-            opacity: 0.4;
-            pointer-events: none;
+        .nav-btn:active {
+            background: #c9bbac;
         }
-        .slide-footer span {
-            color: #1f3b57;
+        .nav-btn.primary {
+            background: #b7a48b;
+            color: #1f1a15;
+        }
+        .nav-btn.primary:hover {
+            background: #a69077;
+        }
+        .slide-counter {
+            font-size: 0.95rem;
             font-weight: 500;
+            color: #5b6f7e;
+            background: #ede8e1;
+            padding: 0.3rem 1.4rem;
+            border-radius: 60px;
         }
-        .slide-body::-webkit-scrollbar {
-            width: 5px;
+        .attribution {
+            font-size: 0.75rem;
+            color: #8d9ca8;
+            margin-top: 0.2rem;
         }
-        .slide-body::-webkit-scrollbar-track {
-            background: #eef3f9;
+        @media (max-width: 700px) {
+            .slide-wrapper { padding: 1.2rem; }
+            h1 { font-size: 1.9rem; padding-left: 0.8rem; }
+            h2 { font-size: 1.5rem; }
+            .nav-bar { padding: 0.6rem 1.2rem; flex-direction: column; align-items: stretch; }
+            .nav-btn { justify-content: center; }
         }
-        .slide-body::-webkit-scrollbar-thumb {
-            background: #7c9bc0;
-            border-radius: 10px;
-        }
-        @media (max-width: 800px) {
-            .slide-body { padding: 16px; }
-            .slide-header h2 { font-size: 1rem; }
-            .audio-control { flex-direction: column; align-items: stretch; }
-        }
+        .slide-wrapper::-webkit-scrollbar { width: 5px; }
+        .slide-wrapper::-webkit-scrollbar-track { background: #ede8e1; border-radius: 10px; }
+        .slide-wrapper::-webkit-scrollbar-thumb { background: #c5b7a8; border-radius: 10px; }
     </style>
 </head>
 <body>
-<div class="slide-container" id="app">
-    <div class="slide-header">
-        <h2>📊 改革・外部董事・投資家</h2>
-        <div class="slide-counter">Slide <span id="currentSlideIndex">1</span> / <span id="totalSlides">21</span></div>
+<div class="slide-container">
+    <div class="slide-wrapper" id="slideWrapper">
+        <!-- SLIDE 1: Mục lục -->
+        <div class="slide active" data-index="0">
+            <div class="slide-content">
+                <div class="subhead">📊 改革・外部董事・投資家</div>
+                <h1>Mục lục</h1>
+                <ul style="list-style: none; padding-left: 0; font-size: 1.3rem; margin: 20px 0;">
+                    <li style="margin: 18px 0;">❶ 基本概念：三大核心权力机构</li>
+                    <li style="margin: 18px 0;">❷ 外部董事的实际作用</li>
+                    <li style="margin: 18px 0;">❸ 改革最大的得益者：外国投资者</li>
+                </ul>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: 1.1 股东大会 -->
+        <div class="slide" data-index="1">
+            <div class="slide-content">
+                <h2>1.1 股东大会</h2>
+                <div class="highlight-box">
+                    <p style="font-size:1.2rem;">由全体持股股东组成, 依持股享有表决权, 是法律上的最高权力机构。</p>
+                </div>
+                <h3 style="margin: 18px 0 8px; color: #1a3f62;">🔹 股权分布实例 (2011 vs 2016)</h3>
+                <p>丰田汽车 · 三菱商事 · 索尼 · 软银 (xem chi tiết trong các slide sau)</p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Toyota 2011 -->
+        <div class="slide" data-index="2">
+            <div class="slide-content">
+                <h2>🚗 Toyota 2011</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>交叉持股/稳定股东 (丰田自动织机)</td><td>9.50</td></tr>
+                    <tr><td>交叉持股/稳定股东 (电装)</td><td>2.90</td></tr>
+                    <tr><td>主银行 (瑞穗·三井住友)</td><td>1.90</td></tr>
+                    <tr><td>机构投资者(国内)</td><td>22.00</td></tr>
+                    <tr><td>外国机构投资者</td><td>18.00</td></tr>
+                    <tr><td>中小散户</td><td>12.00</td></tr>
+                    <tr><td>库存股/其他</td><td>28.60</td></tr>
+                </table>
+                <p><strong>🔸 传统财阀・交叉持股明显</strong></p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Toyota 2016 -->
+        <div class="slide" data-index="3">
+            <div class="slide-content">
+                <h2>🚗 Toyota 2016</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>交叉持股/稳定股东</td><td>11.70</td></tr>
+                    <tr><td>主银行</td><td>1.50</td></tr>
+                    <tr><td>机构投资者(国内) 信托</td><td>10.10</td></tr>
+                    <tr><td>其他国内机构</td><td>9.00</td></tr>
+                    <tr><td>外国机构投资者</td><td>19.00</td></tr>
+                    <tr><td>中小散户</td><td>9.00</td></tr>
+                    <tr><td>库存股/其他</td><td>30.10</td></tr>
+                </table>
+                <p><strong>📈 外国投資家維持, 国内機関投資家減少</strong></p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Mitsubishi Corp 2011 -->
+        <div class="slide" data-index="4">
+            <div class="slide-content">
+                <h2>🏢 三菱商事 2011</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>交叉持股 (三菱重工・三菱系)</td><td>5.10</td></tr>
+                    <tr><td>主银行 三菱UFJ</td><td>3.80</td></tr>
+                    <tr><td>国内机构 (明治安田・信托)</td><td>15.80</td></tr>
+                    <tr><td>其他国内机构</td><td>7.00</td></tr>
+                    <tr><td>外国机构投资者</td><td>20.00</td></tr>
+                    <tr><td>中小散户</td><td>5.00</td></tr>
+                    <tr><td>库存股/其他</td><td>21.00</td></tr>
+                </table>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Mitsubishi Corp 2016 -->
+        <div class="slide" data-index="5">
+            <div class="slide-content">
+                <h2>🏢 三菱商事 2016</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>交叉持股 (三菱重工・三菱系)</td><td>3.30</td></tr>
+                    <tr><td>主银行 三菱UFJ</td><td>3.20</td></tr>
+                    <tr><td>国内机构 (明治安田・信托)</td><td>12.50</td></tr>
+                    <tr><td>其他国内机构</td><td>8.00</td></tr>
+                    <tr><td>外国机构投资者</td><td>23.00</td></tr>
+                    <tr><td>中小散户</td><td>4.00</td></tr>
+                    <tr><td>库存股/其他</td><td>32.00</td></tr>
+                </table>
+                <p>🔹 <strong>外国投資家比率上昇 (20%→23%)</strong></p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Sony 2011 -->
+        <div class="slide" data-index="6">
+            <div class="slide-content">
+                <h2>🎮 Sony 2011</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>交叉持股 (三菱UFJ・三井住友・瑞穗)</td><td>8.10</td></tr>
+                    <tr><td>主银行 日本生命</td><td>2.50</td></tr>
+                    <tr><td>国内机构</td><td>10.00</td></tr>
+                    <tr><td>外国机构投资者</td><td>28.00</td></tr>
+                    <tr><td>中小散户</td><td>8.00</td></tr>
+                    <tr><td>库存股/其他</td><td>24.60</td></tr>
+                </table>
+                <p>📌 <strong>外国機関投資家 28% – 既に高い</strong></p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Sony 2016 -->
+        <div class="slide" data-index="7">
+            <div class="slide-content">
+                <h2>🎮 Sony 2016</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>交叉持股 (三菱UFJ・三井住友・瑞穗)</td><td>7.00</td></tr>
+                    <tr><td>国内信托 (Master Trust・Japan Trustee)</td><td>9.24</td></tr>
+                    <tr><td>外国機関 (Citibank, JPM, State Street)</td><td>16.53</td></tr>
+                    <tr><td>其他外国机构</td><td>15.00</td></tr>
+                    <tr><td>中小散户</td><td>6.00</td></tr>
+                    <tr><td>库存股/其他</td><td>28.23</td></tr>
+                </table>
+                <p>🌟 <strong>外国投資家合計 31%+ , 支配力増大</strong></p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: SoftBank 2011 -->
+        <div class="slide" data-index="8">
+            <div class="slide-content">
+                <h2>📱 SoftBank 2011</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>孫正義 (创始人家族)</td><td>19.30</td></tr>
+                    <tr><td>国内信托</td><td>5.50</td></tr>
+                    <tr><td>交叉持股 (雅虎日本)</td><td>3.50</td></tr>
+                    <tr><td>主银行 瑞穗</td><td>2.50</td></tr>
+                    <tr><td>其他国内机构</td><td>8.00</td></tr>
+                    <tr><td>外国机构投资者</td><td>22.00</td></tr>
+                    <tr><td>中小散户</td><td>8.00</td></tr>
+                    <tr><td>库存股/其他</td><td>16.50</td></tr>
+                </table>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: SoftBank 2016 -->
+        <div class="slide" data-index="9">
+            <div class="slide-content">
+                <h2>📱 SoftBank 2016</h2>
+                <table>
+                    <tr><th>股东分类</th><th>持股(%)</th></tr>
+                    <tr><td>孫正義 (创始人)</td><td>19.80</td></tr>
+                    <tr><td>国内信托 (Master Trust・Custody)</td><td>23.70</td></tr>
+                    <tr><td>主银行 瑞穗</td><td>1.80</td></tr>
+                    <tr><td>其他国内机构</td><td>3.00</td></tr>
+                    <tr><td>外国机构投资者</td><td>25.00</td></tr>
+                    <tr><td>中小散户</td><td>5.00</td></tr>
+                    <tr><td>库存股/其他</td><td>10.20</td></tr>
+                </table>
+                <p>📊 <strong>外国投資家 25% , 信託銀行急増</strong></p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Các bên liên quan -->
+        <div class="slide" data-index="10">
+            <div class="slide-content">
+                <h2>🧩 Các bên liên quan</h2>
+                <div class="highlight-box">
+                    <p><strong>🏛️ 交叉持股・主銀行</strong> : 安定・長期, 既得権益</p>
+                    <p><strong>🌍 海外投資家・中小散户</strong> : 高配当・株価上昇, 発言権希薄</p>
+                    <p><strong>👑 創業家</strong> : 保守的, 継承重視</p>
+                </div>
+                <h3 style="margin-top: 14px;">→ 改革でパワーバランスが変化</h3>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: 1.2 董事会 -->
+        <div class="slide" data-index="11">
+            <div class="slide-content">
+                <h2>1.2 董事会</h2>
+                <p><strong>監督・重大決策</strong> (内部董事 + 独立董事)</p>
+                <div class="highlight-box">
+                    <p><strong>旧模式:</strong> 社長・経営陣が指名, 90%以上内部昇進, 外部は親族・関連会社 → 「ゴム印」</p>
+                    <p><strong>改革後:</strong> 指名委員会 (独立董事必須) に移行</p>
+                </div>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Toyota 董事会 2011 -->
+        <div class="slide" data-index="12">
+            <div class="slide-content">
+                <h2>🚘 Toyota 董事会 2011</h2>
+                <p><strong>15名中 内部14名, 外部1名 (三菱重工前社長)</strong></p>
+                <p style="background:#eef4fb; padding:8px 16px; border-radius:30px;">👤 豊田章一郎 (名誉会長)・張富士夫・豊田章男 など</p>
+                <p>🔹 外部比率 約7%</p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Toyota 董事会 2016 -->
+        <div class="slide" data-index="13">
+            <div class="slide-content">
+                <h2>🚘 Toyota 董事会 2016</h2>
+                <p><strong>15名中 外部5名 (33%)</strong> ～ 最低限コンプライアンス</p>
+                <p>➕ 独立董事 約3名 (真の独立性は限定的)</p>
+                <div class="highlight-box">📌 外部董事増加, 但仍為最低要求</div>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 15: Mitsubishi Corp 董事会 -->
+        <div class="slide" data-index="14">
+            <div class="slide-content">
+                <h2>🏢 三菱商事 董事会</h2>
+                <p><strong>2011:</strong> 外部 0% (全員内部)</p>
+                <p><strong>2016:</strong> 14名中 外部5名 (36%) – 但し関連会社出身の「包装」</p>
+                <p>🔸 実質独立性は低い</p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 16: Sony 董事会 -->
+        <div class="slide" data-index="15">
+            <div class="slide-content">
+                <h2>🎯 Sony 董事会 – 異例の改革</h2>
+                <p><strong>2011:</strong> 13名中 外部4名 (31%)</p>
+                <p><strong>2016:</strong> 12名中 外部8名 (67%) – 多数派, 会長も外部</p>
+                <p>🌟 <strong>真の独立監督者</strong> (元米国大使, MIT, 監査役など)</p>
+                <p>✅ 指名・報酬・監査委員会を外部主導</p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 17: SoftBank 董事会 -->
+        <div class="slide" data-index="16">
+            <div class="slide-content">
+                <h2>📱 SoftBank 董事会</h2>
+                <p><strong>2011:</strong> 外部 0% (全員内部昇進・子会社)</p>
+                <p><strong>2016:</strong> 11名中 外部3名 (27%) – ただし马云・柳井正は独立性が疑問</p>
+                <div class="highlight-box">⚠️ <strong>独立性が最も薄弱</strong> (子会社CEOを外部とラベリング)</div>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 18: Mức độ độc lập -->
+        <div class="slide" data-index="17">
+            <div class="slide-content">
+                <h2>📊 外部董事の実態</h2>
+                <ul>
+                    <li><strong>1. 真の独立監督者</strong> (Sony) – 無関係, 委員会議長</li>
+                    <li><strong>2. 限定的独立性</strong> (Toyota) – メインバンク出身など</li>
+                    <li><strong>3. 関連会社の包装</strong> (三菱商事) – 取引先の前役員</li>
+                    <li><strong>4. 内部人間を外部と偽装</strong> (SoftBank) – 子会社CEO</li>
+                </ul>
+                <div class="highlight-box">🔹 Sony のみが真の改革, 他は形式適合</div>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 19: 1.3 経営陣 -->
+        <div class="slide" data-index="18">
+            <div class="slide-content">
+                <h2>1.3 経営陣</h2>
+                <p><strong>CEO 選任</strong> : 旧→社長推薦, 年功序列, 新→指名委員会</p>
+                <p><strong>報酬</strong> : 旧→固定, 年功, 新→ROE連動, 独立委員会</p>
+                <p>📌 変化は遅いが、外圧で進む</p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 20: 外部董事比率 変化 -->
+        <div class="slide" data-index="19">
+            <div class="slide-content">
+                <h2>📈 外部董事比率 (2011→2016)</h2>
+                <table>
+                    <tr><th>会社</th><th>2011</th><th>2016</th><th>実質独立</th></tr>
+                    <tr><td>Sony</td><td>31%</td><td>67%</td><td>6/8</td></tr>
+                    <tr><td>Toyota</td><td>7%</td><td>33%</td><td>3/5</td></tr>
+                    <tr><td>三菱商事</td><td>0%</td><td>36%</td><td>2/5</td></tr>
+                    <tr><td>SoftBank</td><td>0%</td><td>27%</td><td>1/3</td></tr>
+                </table>
+                <p>⭐ Sony が唯一の「過半数外部」, 他は最低限</p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 21: Kết luận -->
+        <div class="slide" data-index="20">
+            <div class="slide-content">
+                <h2>🏁 改革の最大得益者: 外国投資家</h2>
+                <div class="highlight-box">
+                    <p>📌 信託銀行・外国投資家の持分増加 → 発言力上昇</p>
+                    <p>📌 コーポレートガバナンス改革で配当・ROE重視へ</p>
+                    <p>📌 外部董事は「本物」かどうかが分かれ目</p>
+                </div>
+                <p style="margin-top:16px;"><strong>➡️  Sony は先行事例, 他社は追随または形式的対応</strong></p>
+                <div class="audio-wrapper">
+                    <span class="audio-label">🎙️ Thuyết minh</span>
+                    <iframe src="https://vocaroo.com/embed/12LtZ9RPPfVD?autoplay=0" width="240" height="52" frameborder="0" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="slide-body" id="slideBody"></div>
-
-    <div class="slide-footer">
-        <button class="nav-btn" id="prevBtn" disabled>◀ Trang trước</button>
-        <span id="slideTitle">Tổng quan</span>
-        <button class="nav-btn" id="nextBtn">Trang sau ▶</button>
+    <!-- điều hướng -->
+    <div class="nav-bar">
+        <button class="nav-btn" id="prevSlide" aria-label="Slide trước">◀ Trước</button>
+        <span class="slide-counter" id="slideCounter">1 / 21</span>
+        <button class="nav-btn primary" id="nextSlide" aria-label="Slide tiếp">Tiếp ▶</button>
     </div>
 </div>
-
 <script>
-    // ----- DỮ LIỆU SLIDE (tái cấu trúc từ PDF) -----
-    const slides = [
-        { title: 'Mục lục', content: `<h1>📑 Nội dung</h1><ul style="font-size:1.4rem; list-style: none; padding-left: 10px; margin-top: 30px;"><li style="margin: 18px 0;">❶ 基本概念：三大核心权力机构</li><li style="margin: 18px 0;">❷ 外部董事的实际作用</li><li style="margin: 18px 0;">❸ 改革最大的得益者：外国投资者</li></ul>` },
-        { title: '1.1 股东大会', content: `<h1>📌 股东大会</h1><div class="highlight-box" style="font-size:1.2rem;"><p>由全体持股股东组成, 依持股享有表决权, 是法律上的最高权力机构。</p></div><h3 style="margin-top:20px;">🔹 股权分布实例 (2011 vs 2016)</h3><p>▶ 丰田汽车 · 三菱商事 · 索尼 · 软银 (xem chi tiết trong slide kế)</p>` },
-        { title: 'Toyota 2011', content: `<h1>🚗 Toyota 2011</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>交叉持股/稳定股东 (丰田自动织机)</td><td>9.50</td></tr><tr><td>交叉持股/稳定股东 (电装)</td><td>2.90</td></tr><tr><td>主银行 (瑞穗·三井住友)</td><td>1.90</td></tr><tr><td>机构投资者(国内)</td><td>22.00</td></tr><tr><td>外国机构投资者</td><td>18.00</td></tr><tr><td>中小散户</td><td>12.00</td></tr><tr><td>库存股/其他</td><td>28.60</td></tr></table><p style="margin-top:8px;"><strong>🔸 传统财阀・交叉持股明显</strong></p>` },
-        { title: 'Toyota 2016', content: `<h1>🚗 Toyota 2016</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>交叉持股/稳定股东</td><td>11.70</td></tr><tr><td>主银行</td><td>1.50</td></tr><tr><td>机构投资者(国内) 信托</td><td>10.10</td></tr><tr><td>其他国内机构</td><td>9.00</td></tr><tr><td>外国机构投资者</td><td>19.00</td></tr><tr><td>中小散户</td><td>9.00</td></tr><tr><td>库存股/其他</td><td>30.10</td></tr></table><p style="margin-top:8px;"><strong>📈 外国投資家維持, 国内機関投資家減少</strong></p>` },
-        { title: 'Mitsubishi Corp 2011', content: `<h1>🏢 三菱商事 2011</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>交叉持股 (三菱重工・三菱系)</td><td>5.10</td></tr><tr><td>主银行 三菱UFJ</td><td>3.80</td></tr><tr><td>国内机构 (明治安田・信托)</td><td>15.80</td></tr><tr><td>其他国内机构</td><td>7.00</td></tr><tr><td>外国机构投资者</td><td>20.00</td></tr><tr><td>中小散户</td><td>5.00</td></tr><tr><td>库存股/其他</td><td>21.00</td></tr></table>` },
-        { title: 'Mitsubishi Corp 2016', content: `<h1>🏢 三菱商事 2016</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>交叉持股 (三菱重工・三菱系)</td><td>3.30</td></tr><tr><td>主银行 三菱UFJ</td><td>3.20</td></tr><tr><td>国内机构 (明治安田・信托)</td><td>12.50</td></tr><tr><td>其他国内机构</td><td>8.00</td></tr><tr><td>外国机构投资者</td><td>23.00</td></tr><tr><td>中小散户</td><td>4.00</td></tr><tr><td>库存股/其他</td><td>32.00</td></tr></table><p>🔹 <strong>外国投資家比率上昇 (20%→23%)</strong></p>` },
-        { title: 'Sony 2011', content: `<h1>🎮 Sony 2011</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>交叉持股 (三菱UFJ・三井住友・瑞穗)</td><td>8.10</td></tr><tr><td>主银行 日本生命</td><td>2.50</td></tr><tr><td>国内机构</td><td>10.00</td></tr><tr><td>外国机构投资者</td><td>28.00</td></tr><tr><td>中小散户</td><td>8.00</td></tr><tr><td>库存股/其他</td><td>24.60</td></tr></table><p>📌 <strong>外国機関投資家 28% – 既に高い</strong></p>` },
-        { title: 'Sony 2016', content: `<h1>🎮 Sony 2016</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>交叉持股 (三菱UFJ・三井住友・瑞穗)</td><td>7.00</td></tr><tr><td>国内信托 (Master Trust・Japan Trustee)</td><td>9.24</td></tr><tr><td>外国機関 (Citibank, JPM, State Street)</td><td>16.53</td></tr><tr><td>其他外国机构</td><td>15.00</td></tr><tr><td>中小散户</td><td>6.00</td></tr><tr><td>库存股/其他</td><td>28.23</td></tr></table><p>🌟 <strong>外国投資家合計 31%+ , 支配力増大</strong></p>` },
-        { title: 'SoftBank 2011', content: `<h1>📱 SoftBank 2011</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>孫正義 (创始人家族)</td><td>19.30</td></tr><tr><td>国内信托</td><td>5.50</td></tr><tr><td>交叉持股 (雅虎日本)</td><td>3.50</td></tr><tr><td>主银行 瑞穗</td><td>2.50</td></tr><tr><td>其他国内机构</td><td>8.00</td></tr><tr><td>外国机构投资者</td><td>22.00</td></tr><tr><td>中小散户</td><td>8.00</td></tr><tr><td>库存股/其他</td><td>16.50</td></tr></table>` },
-        { title: 'SoftBank 2016', content: `<h1>📱 SoftBank 2016</h1><table><tr><th>股东分类</th><th>持股(%)</th></tr><tr><td>孫正義 (创始人)</td><td>19.80</td></tr><tr><td>国内信托 (Master Trust・Custody)</td><td>23.70</td></tr><tr><td>主银行 瑞穗</td><td>1.80</td></tr><tr><td>其他国内机构</td><td>3.00</td></tr><tr><td>外国机构投资者</td><td>25.00</td></tr><tr><td>中小散户</td><td>5.00</td></tr><tr><td>库存股/其他</td><td>10.20</td></tr></table><p>📊 <strong>外国投資家 25% , 信託銀行急増</strong></p>` },
-        { title: 'Các bên liên quan', content: `<h1>🧩 Các bên liên quan</h1><div class="highlight-box"><p><strong>🏛️ 交叉持股・主銀行</strong> : 安定・長期, 既得権益</p><p><strong>🌍 海外投資家・中小散户</strong> : 高配当・株価上昇, 発言権希薄</p><p><strong>👑 創業家</strong> : 保守的, 継承重視</p></div><h3>→ 改革でパワーバランスが変化</h3>` },
-        { title: '1.2 董事会', content: `<h1>📋 董事会</h1><p><strong>監督・重大決策</strong> (内部董事 + 独立董事)</p><div class="highlight-box"><p><strong>旧模式:</strong> 社長・経営陣が指名, 90%以上内部昇進, 外部は親族・関連会社 → 「ゴム印」</p><p><strong>改革後:</strong> 指名委員会 (独立董事必須) に移行</p></div>` },
-        { title: 'Toyota 董事会 2011', content: `<h1>🚘 Toyota 2011</h1><p><strong>15名中 内部14名, 外部1名 (三菱重工前社長)</strong></p><p style="background:#eef4fb; padding:8px; border-radius:8px;">👤 豊田章一郎 (名誉会長)・張富士夫・豊田章男 など</p><p>🔹 外部比率 約7%</p>` },
-        { title: 'Toyota 董事会 2016', content: `<h1>🚘 Toyota 2016</h1><p><strong>15名中 外部5名 (33%)</strong> ～ 最低限コンプライアンス</p><p>➕ 独立董事 約3名 (真の独立性は限定的)</p><p style="background:#eef4fb; padding:8px; border-radius:8px;">📌 外部董事増加, 但仍為最低要求</p>` },
-        { title: 'Mitsubishi Corp 董事会', content: `<h1>🏢 三菱商事 董事会</h1><p><strong>2011:</strong> 外部 0% (全員内部)</p><p><strong>2016:</strong> 14名中 外部5名 (36%) – 但し関連会社出身の「包装」</p><p>🔸 実質独立性は低い</p>` },
-        { title: 'Sony 董事会', content: `<h1>🎯 Sony 董事会 – 異例の改革</h1><p><strong>2011:</strong> 13名中 外部4名 (31%)</p><p><strong>2016:</strong> 12名中 外部8名 (67%) – 多数派, 会長も外部</p><p>🌟 <strong>真の独立監督者</strong> (元米国大使, MIT, 監査役など)</p><p>✅ 指名・報酬・監査委員会を外部主導</p>` },
-        { title: 'SoftBank 董事会', content: `<h1>📱 SoftBank 董事会</h1><p><strong>2011:</strong> 外部 0% (全員内部昇進・子会社)</p><p><strong>2016:</strong> 11名中 外部3名 (27%) – ただし马云・柳井正は独立性が疑問</p><p>⚠️ <strong>独立性が最も薄弱</strong> (子会社CEOを外部とラベリング)</p>` },
-        { title: 'Mức độ độc lập', content: `<h1>📊 外部董事の実態</h1><ul><li><strong>1. 真の独立監督者</strong> (Sony) – 無関係, 委員会議長</li><li><strong>2. 限定的独立性</strong> (Toyota) – メインバンク出身など</li><li><strong>3. 関連会社の包装</strong> (三菱商事) – 取引先の前役員</li><li><strong>4. 内部人間を外部と偽装</strong> (SoftBank) – 子会社CEO</li></ul><div class="highlight-box">🔹 Sony のみが真の改革, 他は形式適合</div>` },
-        { title: '1.3 経営陣', content: `<h1>👔 経営陣 (社長・執行)</h1><p><strong>CEO 選任</strong> : 旧→社長推薦, 年功序列, 新→指名委員会</p><p><strong>報酬</strong> : 旧→固定, 年功, 新→ROE連動, 独立委員会</p><p>📌 変化は遅いが、外圧で進む</p>` },
-        { title: '外部董事比率 変化', content: `<h1>📈 外部董事比率 (2011→2016)</h1><table><tr><th>会社</th><th>2011</th><th>2016</th><th>実質独立</th></tr><tr><td>Sony</td><td>31%</td><td>67%</td><td>6/8</td></tr><tr><td>Toyota</td><td>7%</td><td>33%</td><td>3/5</td></tr><tr><td>三菱商事</td><td>0%</td><td>36%</td><td>2/5</td></tr><tr><td>SoftBank</td><td>0%</td><td>27%</td><td>1/3</td></tr></table><p>⭐ Sony が唯一の「過半数外部」, 他は最低限</p>` },
-        { title: 'Kết luận', content: `<h1>🏁 改革の最大得益者: 外国投資家</h1><div class="highlight-box"><p>📌 信託銀行・外国投資家の持分増加 → 発言力上昇</p><p>📌 コーポレートガバナンス改革で配当・ROE重視へ</p><p>📌 外部董事は「本物」かどうかが分かれ目</p></div><p style="margin-top:16px;"><strong>➡️  Sony は先行事例, 他社は追随または形式的対応</strong></p>` }
-    ];
+    (function() {
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevSlide');
+        const nextBtn = document.getElementById('nextSlide');
+        const counter = document.getElementById('slideCounter');
+        let current = 0;
+        const total = slides.length;
 
-    // ----- STATE -----
-    let currentIndex = 0;
-    const total = slides.length;
-    // Lưu link vocaroo cho từng slide
-    const vocarooLinks = new Array(total).fill('https://voca.ro/12LtZ9RPPfVD');
-
-    // elements
-    const slideBody = document.getElementById('slideBody');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const slideTitle = document.getElementById('slideTitle');
-    const currentSlideSpan = document.getElementById('currentSlideIndex');
-    const totalSlidesSpan = document.getElementById('totalSlides');
-    totalSlidesSpan.textContent = total;
-
-    // Biến để quản lý audio
-    let currentAudio = null;
-
-    function renderSlide(index) {
-        const slide = slides[index];
-        if (!slide) return;
-        slideBody.innerHTML = slide.content;
-        slideTitle.textContent = slide.title || `Slide ${index+1}`;
-        currentSlideSpan.textContent = index + 1;
-        prevBtn.disabled = index === 0;
-        nextBtn.disabled = index === total - 1;
-
-        // Thêm phần điều khiển âm thanh
-        const audioDiv = document.createElement('div');
-        audioDiv.className = 'audio-control';
-        const link = vocarooLinks[index] || '';
-        audioDiv.innerHTML = `
-            <label>🎙️ Vocaroo:</label>
-            <input type="text" id="vocarooInput_${index}" placeholder="Dán link Vocaroo..." value="${link}">
-            <button onclick="saveVocaroo(${index})">Lưu</button>
-            <button class="play-btn" id="playBtn_${index}" onclick="togglePlay(${index})">▶</button>
-        `;
-        slideBody.appendChild(audioDiv);
-    }
-
-    // Lưu link vocaroo
-    window.saveVocaroo = function(idx) {
-        const input = document.getElementById(`vocarooInput_${idx}`);
-        if (input) {
-            vocarooLinks[idx] = input.value.trim();
-            alert('✅ Đã lưu link thuyết minh cho slide ' + (idx+1));
-        }
-    };
-
-    // Phát/dừng âm thanh
-    window.togglePlay = function(idx) {
-        const btn = document.getElementById(`playBtn_${idx}`);
-        const link = vocarooLinks[idx];
-        if (!link) {
-            alert('⚠️ Vui lòng nhập link Vocaroo trước.');
-            return;
+        function updateSlide(index) {
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === index);
+            });
+            counter.textContent = `${index+1} / ${total}`;
+            const wrapper = document.getElementById('slideWrapper');
+            if (wrapper) wrapper.scrollTop = 0;
         }
 
-        // Nếu đang có audio và là cùng slide thì tắt
-        if (currentAudio && currentAudio.slideIndex === idx && !currentAudio.audio.paused) {
-            currentAudio.audio.pause();
-            btn.textContent = '▶';
-            btn.classList.remove('playing');
-            return;
+        function goTo(index) {
+            if (index < 0) index = total - 1;
+            if (index >= total) index = 0;
+            current = index;
+            updateSlide(current);
         }
 
-        // Dừng audio cũ
-        if (currentAudio) {
-            currentAudio.audio.pause();
-            const oldBtn = document.getElementById(`playBtn_${currentAudio.slideIndex}`);
-            if (oldBtn) { oldBtn.textContent = '▶'; oldBtn.classList.remove('playing'); }
-        }
+        prevBtn.addEventListener('click', () => goTo(current - 1));
+        nextBtn.addEventListener('click', () => goTo(current + 1));
 
-        // Tạo audio mới
-        const audio = new Audio(link);
-        audio.play().catch(e => {
-            alert('❌ Không thể phát âm thanh. Kiểm tra link Vocaroo.');
-            console.warn(e);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+            else if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
         });
-        currentAudio = { slideIndex: idx, audio: audio };
-        btn.textContent = '⏹';
-        btn.classList.add('playing');
 
-        // Khi kết thúc, reset nút
-        audio.onended = function() {
-            btn.textContent = '▶';
-            btn.classList.remove('playing');
-            if (currentAudio && currentAudio.slideIndex === idx) {
-                currentAudio = null;
-            }
-        };
-    };
-
-    function goTo(index) {
-        if (index < 0) index = 0;
-        if (index >= total) index = total - 1;
-        currentIndex = index;
-        // Dừng audio đang phát khi chuyển slide
-        if (currentAudio) {
-            currentAudio.audio.pause();
-            const oldBtn = document.getElementById(`playBtn_${currentAudio.slideIndex}`);
-            if (oldBtn) { oldBtn.textContent = '▶'; oldBtn.classList.remove('playing'); }
-            currentAudio = null;
-        }
-        renderSlide(currentIndex);
-    }
-
-    prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
-    nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
-
-    // init
-    renderSlide(0);
+        updateSlide(0);
+    })();
 </script>
 </body>
 </html>
